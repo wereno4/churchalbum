@@ -1,0 +1,17 @@
+초기 세팅
+
+코드가 있는 폴더에서
+1. python -m venv venv
+2. ./venv/bin/activate.bat
+3. pip install -r requirements.txt
+
+한번에 실행하기
+
+1.코드가 있는 폴더에 start.bat 파일 생성
+2.start.bat을 메모장으로 열어서 다음과 같이 적음
+@echo off
+./venv/bin/activate.bat
+python main.py
+deactivate
+3.저장
+4. start.bat을 눌러서 실행
