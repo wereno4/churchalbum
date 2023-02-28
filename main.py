@@ -245,7 +245,7 @@ class addDialog(QDialog, addWindow.Ui_Dialog):
         max = max[0][0]
         key_to_add = 0 if max is None else max + 1
 
-        shutil.move(self.file.text(), './img/'+file_name)
+        shutil.copy(self.file.text(), './img/'+file_name)
 
         cur.execute(f"INSERT INTO church VALUES ({key_to_add}, '{self.calendertype.text()}', '{self.series.text()}', {self.year.text()}, {self.month.text()}, '{self.country.text()}', '{self.region.text()}', '{self.church.text()}', '{file_name}', '{self.note.toPlainText()}')")
         conn.commit()
