@@ -29,6 +29,8 @@ class Ui_MainWindow(object):
         self.add.setObjectName(u"add")
         self.addmenu = QAction(MainWindow)
         self.addmenu.setObjectName(u"addmenu")
+        self.modify = QAction(MainWindow)
+        self.modify.setObjectName(u"modify")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.calendertype = QComboBox(self.centralwidget)
@@ -95,6 +97,7 @@ class Ui_MainWindow(object):
 
         self.menubar.addAction(self.menu.menuAction())
         self.menu.addAction(self.addmenu)
+        self.menu.addAction(self.modify)
 
         self.retranslateUi(MainWindow)
 
@@ -108,6 +111,7 @@ class Ui_MainWindow(object):
         self.add.setToolTip(QCoreApplication.translate("MainWindow", u"\ub370\uc774\ud130\ub97c \ucd94\uac00\ud568", None))
 #endif // QT_CONFIG(tooltip)
         self.addmenu.setText(QCoreApplication.translate("MainWindow", u"\ucd94\uac00", None))
+        self.modify.setText(QCoreApplication.translate("MainWindow", u"\uc218\uc815/\uc0ad\uc81c", None))
         self.image.setText("")
         self.typelabel.setText(QCoreApplication.translate("MainWindow", u"\ub2ec\ub825 \uc885\ub958", None))
         self.serieslabel.setText(QCoreApplication.translate("MainWindow", u"\uc2dc\ub9ac\uc988", None))

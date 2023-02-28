@@ -2,7 +2,7 @@ import sqlite3
 from PySide6.QtWidgets import *
 from PySide6.QtGui import QPixmap
 from mainWindow import Ui_MainWindow
-import addWindow
+import addWindow, modifyWindow
 import os, shutil
 
 
@@ -33,6 +33,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.region.currentIndexChanged.connect(self.find_image)
         self.imageList.itemClicked.connect(self.show_image)
         self.addmenu.triggered.connect(self.addWindow)
+        self.modify.triggered.connect(self.modifyWindow)
 
 
 
@@ -193,13 +194,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         elif pixmap.size().width() <= pixmap.size().height():
             pixmap = pixmap.scaledToHeight(self.image.height())
         self.image.setPixmap(pixmap)
-        cur.execute(f"SELECT note FROM church WHERE file_name = '{self.imageList.currentItem().text()}'")
-        note = cur.fetchall()
-        note = note[0][0]
-        self.note.setPlainText(note)
+        cur.execute(f"SELECT note, image_id FROM church WHERE file_name = '{self.imageList.currentItem().text()}'")
+        note, id= cur.fetchall()[0]
+        self.note.setPlainText(note+"\n"+f"ID: {id}")
 
     def addWindow(self):
         dialog = addDialog()
+        dialog.exec()
+        self.combobox_generate()
+
+    def modifyWindow(self):
+        dialog = modifyDialog()
         dialog.exec()
         self.combobox_generate()
 
@@ -253,13 +258,77 @@ class addDialog(QDialog, addWindow.Ui_Dialog):
     
         self.accept()
 
+class modifyDialog(QDialog, modifyWindow.Ui_Dialog):
+    def __init__(self, parent=None):
+        QDialog.__init__(self, parent)
+        self.setupUi(self)
+
+        self.checkID.clicked.connect(self.check_data)
+        self.cancelButton.clicked.connect(self.reject)
+        self.deleteButton.clicked.connect(self.delete_data)
+        self.modifyButton.clicked.connect(self.modify_data)
+
+    def check_data(self):
+        self.calendertype.clear()
+        self.series.clear()
+        self.year.clear()
+        self.month.clear()
+        self.country.clear()
+        self.region.clear()
+        self.church.clear()
+        self.file.clear()
+        self.note.clear()
+        self.currentID = self.ID.text()
+        cur.execute(f"SELECT type, series, year, month, country, region, church, file_name, note FROM church WHERE image_id = {self.ID.text()}")
+        result = cur.fetchall()[0]
+        self.calendertype.setText(result[0])
+        self.series.setText(result[1])
+        self.year.setText(str(result[2]))
+        self.month.setText(str(result[3]))
+        self.country.setText(result[4])
+        self.region.setText(result[5])
+        self.church.setText(result[6])
+        self.file.setText(result[7])
+        self.note.setPlainText(result[8])
+        self.oldfilename = result[7]
 
 
+    def delete_data(self):
+        if self.currentID != self.ID.text():
+            return
+        elif self.currentID == self.ID.text():
+            buttonReply = QMessageBox.warning(self, "데이터가 지워집니다.",
+                                              "해당 데이터를 지우겠습니까?",
+                                              QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+            if buttonReply == QMessageBox.No:
+                return
+            elif buttonReply == QMessageBox.Yes:
+                cur.execute(f"DELETE FROM church WHERE image_id = {self.ID.text()}")
+                conn.commit()
+                self.accept()
 
-    
-    
-
-
+    def modify_data(self):
+        if self.currentID != self.ID.text():
+            return
+        elif self.currentID == self.ID.text():
+            buttonReply = QMessageBox.warning(self, "데이터가 수정됩니다.",
+                                              "해당 데이터를 수정하시겠습니까?",
+                                              QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+            if buttonReply == QMessageBox.No:
+                return
+            elif buttonReply == QMessageBox.Yes:
+                file_name = os.path.basename(self.file.text())
+                file_changed = False
+                if file_name != self.file.text():
+                    file_changed = True
+                elif file_name == self.file.text():
+                    file_changed = False
+                cur.execute(f"UPDATE church SET type='{self.calendertype.text()}', series='{self.series.text()}', year={self.year.text()}, month={self.month.text()}, country='{self.country.text()}', region='{self.region.text()}', church='{self.church.text()}', file_name='{file_name}', note='{self.note.toPlainText()}' WHERE image_id = {self.ID.text()}")
+                conn.commit()
+                if file_changed:
+                    shutil.copy(self.file.text(), './img/'+file_name)
+                
+                self.accept()
 
 app = QApplication()
 window = MainWindow()

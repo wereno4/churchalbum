@@ -223,6 +223,7 @@
      <string>데이터베이스</string>
     </property>
     <addaction name="addmenu"/>
+    <addaction name="modify"/>
    </widget>
    <addaction name="menu"/>
   </widget>
@@ -238,6 +239,11 @@
   <action name="addmenu">
    <property name="text">
     <string>추가</string>
+   </property>
+  </action>
+  <action name="modify">
+   <property name="text">
+    <string>수정/삭제</string>
    </property>
   </action>
  </widget>
