@@ -517,5 +517,3 @@ window.show()
 
 app.exec()
 conn.close()
-
-#Fuck You
