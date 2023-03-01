@@ -16,9 +16,10 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QIcon, QImage, QKeySequence, QLinearGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QLabel, QListWidget,
-    QListWidgetItem, QMainWindow, QMenu, QMenuBar,
-    QSizePolicy, QStatusBar, QTextBrowser, QWidget)
+from PySide6.QtWidgets import (QAbstractItemView, QApplication, QComboBox, QHeaderView,
+    QLabel, QMainWindow, QMenu, QMenuBar,
+    QSizePolicy, QStatusBar, QTableWidget, QTableWidgetItem,
+    QTextBrowser, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -81,9 +82,16 @@ class Ui_MainWindow(object):
         self.note = QTextBrowser(self.centralwidget)
         self.note.setObjectName(u"note")
         self.note.setGeometry(QRect(350, 710, 941, 131))
-        self.imageList = QListWidget(self.centralwidget)
+        self.imageList = QTableWidget(self.centralwidget)
+        if (self.imageList.columnCount() < 2):
+            self.imageList.setColumnCount(2)
+        __qtablewidgetitem = QTableWidgetItem()
+        self.imageList.setHorizontalHeaderItem(0, __qtablewidgetitem)
+        __qtablewidgetitem1 = QTableWidgetItem()
+        self.imageList.setHorizontalHeaderItem(1, __qtablewidgetitem1)
         self.imageList.setObjectName(u"imageList")
         self.imageList.setGeometry(QRect(10, 270, 321, 571))
+        self.imageList.setEditTriggers(QAbstractItemView.NoEditTriggers)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
@@ -120,6 +128,10 @@ class Ui_MainWindow(object):
         self.churchlabel.setText(QCoreApplication.translate("MainWindow", u"\uc7a5\uc18c", None))
         self.regionlabel.setText(QCoreApplication.translate("MainWindow", u"\uc9c0\uc5ed", None))
         self.countrylabel.setText(QCoreApplication.translate("MainWindow", u"\uad6d\uac00", None))
+        ___qtablewidgetitem = self.imageList.horizontalHeaderItem(0)
+        ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"\uc7a5\uc18c", None));
+        ___qtablewidgetitem1 = self.imageList.horizontalHeaderItem(1)
+        ___qtablewidgetitem1.setText(QCoreApplication.translate("MainWindow", u"\ud30c\uc77c\uba85", None));
         self.menu.setTitle(QCoreApplication.translate("MainWindow", u"\ub370\uc774\ud130\ubca0\uc774\uc2a4", None))
     # retranslateUi
 

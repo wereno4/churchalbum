@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1143</width>
+    <height>801</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>수정할 목록 찾기</string>
+  </property>
+  <widget class="QLabel" name="monthlabel">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>750</y>
+     <width>67</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>월</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="region">
+   <property name="geometry">
+    <rect>
+     <x>670</x>
+     <y>720</y>
+     <width>151</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="church">
+   <property name="geometry">
+    <rect>
+     <x>500</x>
+     <y>770</y>
+     <width>321</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="typelabel">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>700</y>
+     <width>67</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>달력 종류</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="serieslabel">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>750</y>
+     <width>67</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>시리즈</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="yearlabel">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>700</y>
+     <width>67</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>연도</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="year">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>720</y>
+     <width>151</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="month">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>770</y>
+     <width>151</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="country">
+   <property name="geometry">
+    <rect>
+     <x>500</x>
+     <y>720</y>
+     <width>151</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="countrylabel">
+   <property name="geometry">
+    <rect>
+     <x>500</x>
+     <y>697</y>
+     <width>111</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>국가</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="regionlabel">
+   <property name="geometry">
+    <rect>
+     <x>670</x>
+     <y>700</y>
+     <width>67</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>지역</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="series">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>770</y>
+     <width>321</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="churchlabel">
+   <property name="geometry">
+    <rect>
+     <x>500</x>
+     <y>750</y>
+     <width>67</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>장소</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="calendertype">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>720</y>
+     <width>321</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QDialogButtonBox" name="buttonBox">
+   <property name="geometry">
+    <rect>
+     <x>830</x>
+     <y>760</y>
+     <width>311</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="tableWidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>10</y>
+     <width>1141</width>
+     <height>681</height>
+    </rect>
+   </property>
+   <property name="horizontalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOn</enum>
+   </property>
+   <property name="editTriggers">
+    <set>QAbstractItemView::NoEditTriggers</set>
+   </property>
+   <column>
+    <property name="text">
+     <string>ID</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>달력 종류</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>시리즈</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>연도</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>월</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>국가</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>지역</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>장소</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>파일명</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>비고</string>
+    </property>
+   </column>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

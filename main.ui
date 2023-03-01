@@ -198,7 +198,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QListWidget" name="imageList">
+   <widget class="QTableWidget" name="imageList">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -207,6 +207,19 @@
       <height>571</height>
      </rect>
     </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
+    </property>
+    <column>
+     <property name="text">
+      <string>장소</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>파일명</string>
+     </property>
+    </column>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
