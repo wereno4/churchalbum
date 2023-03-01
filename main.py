@@ -204,8 +204,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.image.setPixmap(pixmap)
         cur.execute(f"SELECT note, image_id, type, series, year, month, country, region, church FROM church WHERE file_name = '{self.imageList.item(self.imageList.currentRow(), 1).text()}'")
         note, id, *information = cur.fetchall()[0]
+        information = [str(x) for x in information]
         note = note + "\n" if note != "" else note
-        self.note.setPlainText(note+f"ID: {id}\n{information}")
+        self.note.setPlainText(note+f"ID: {id}\n{'/'.join(information)}")
 
     def addWindow(self):
         dialog = addDialog()
