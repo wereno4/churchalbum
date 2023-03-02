@@ -90,7 +90,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def find_image(self):
         self.imageList.clearContents()
-        condition = "SELECT church, file_name FROM church"
+        condition = "SELECT image_id, church, file_name FROM church"
         whereand = True
         if self.calendertype.currentText() != "-" and self.calendertype.currentText() != "":
             if whereand:
@@ -148,7 +148,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         for row in image_list:
             x = 0
             for item in row:
-                tableItem = QTableWidgetItem(item)
+                tableItem = QTableWidgetItem(str(item))
                 self.imageList.setItem(y, x, tableItem)
                 x += 1
             y += 1
@@ -156,7 +156,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def search_list(self):
         self.imageList.clearContents()
-        condition = "SELECT church, file_name FROM church"
+        condition = "SELECT image_id, church, file_name FROM church"
         whereand = True
         if self.calendertype.currentText() != "-" and self.calendertype.currentText() != "":
             if whereand:
@@ -227,7 +227,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         for row in image_list:
             x = 0
             for item in row:
-                tableItem = QTableWidgetItem(item)
+                tableItem = QTableWidgetItem(str(item))
                 self.imageList.setItem(y, x, tableItem)
                 x += 1
             y += 1
@@ -304,13 +304,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.church_listing()
 
     def show_image(self):
-        pixmap = QPixmap(f"./img/{self.imageList.item(self.imageList.currentRow(), 1).text()}")
+        pixmap = QPixmap(f"./img/{self.imageList.item(self.imageList.currentRow(), 2).text()}")
         if pixmap.size().width() >= pixmap.size().height():
             pixmap = pixmap.scaledToWidth(self.image.width())
         elif pixmap.size().width() <= pixmap.size().height():
             pixmap = pixmap.scaledToHeight(self.image.height())
         self.image.setPixmap(pixmap)
-        cur.execute(f"SELECT note, image_id, type, theme, series, year, month, country, region, church FROM church WHERE file_name = '{self.imageList.item(self.imageList.currentRow(), 1).text()}'")
+        cur.execute(f"SELECT note, image_id, type, theme, series, year, month, country, region, church FROM church WHERE image_id = '{self.imageList.item(self.imageList.currentRow(), 0).text()}'")
         note, id, *information = cur.fetchall()[0]
         information = [str(x) for x in information]
         note = note + "\n" if note != "" else note

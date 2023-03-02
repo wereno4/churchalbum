@@ -83,12 +83,14 @@ class Ui_MainWindow(object):
         self.note.setObjectName(u"note")
         self.note.setGeometry(QRect(350, 710, 941, 131))
         self.imageList = QTableWidget(self.centralwidget)
-        if (self.imageList.columnCount() < 2):
-            self.imageList.setColumnCount(2)
+        if (self.imageList.columnCount() < 3):
+            self.imageList.setColumnCount(3)
         __qtablewidgetitem = QTableWidgetItem()
         self.imageList.setHorizontalHeaderItem(0, __qtablewidgetitem)
         __qtablewidgetitem1 = QTableWidgetItem()
         self.imageList.setHorizontalHeaderItem(1, __qtablewidgetitem1)
+        __qtablewidgetitem2 = QTableWidgetItem()
+        self.imageList.setHorizontalHeaderItem(2, __qtablewidgetitem2)
         self.imageList.setObjectName(u"imageList")
         self.imageList.setGeometry(QRect(10, 270, 321, 531))
         self.imageList.setEditTriggers(QAbstractItemView.NoEditTriggers)
@@ -143,9 +145,11 @@ class Ui_MainWindow(object):
         self.regionlabel.setText(QCoreApplication.translate("MainWindow", u"\uc9c0\uc5ed", None))
         self.countrylabel.setText(QCoreApplication.translate("MainWindow", u"\uad6d\uac00", None))
         ___qtablewidgetitem = self.imageList.horizontalHeaderItem(0)
-        ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"\uc7a5\uc18c", None));
+        ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"ID", None));
         ___qtablewidgetitem1 = self.imageList.horizontalHeaderItem(1)
-        ___qtablewidgetitem1.setText(QCoreApplication.translate("MainWindow", u"\ud30c\uc77c\uba85", None));
+        ___qtablewidgetitem1.setText(QCoreApplication.translate("MainWindow", u"\uc7a5\uc18c", None));
+        ___qtablewidgetitem2 = self.imageList.horizontalHeaderItem(2)
+        ___qtablewidgetitem2.setText(QCoreApplication.translate("MainWindow", u"\ud30c\uc77c\uba85", None));
         self.serieslabel_2.setText(QCoreApplication.translate("MainWindow", u"\uc2dc\ub9ac\uc988", None))
         self.searchCombo.setItemText(0, QCoreApplication.translate("MainWindow", u"\uc7a5\uc18c", None))
         self.searchCombo.setItemText(1, QCoreApplication.translate("MainWindow", u"\ud30c\uc77c\uba85", None))
