@@ -17,9 +17,9 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
     QPainter, QPalette, QPixmap, QRadialGradient,
     QTransform)
 from PySide6.QtWidgets import (QAbstractItemView, QApplication, QComboBox, QHeaderView,
-    QLabel, QMainWindow, QMenu, QMenuBar,
-    QSizePolicy, QStatusBar, QTableWidget, QTableWidgetItem,
-    QTextBrowser, QWidget)
+    QLabel, QLineEdit, QMainWindow, QMenu,
+    QMenuBar, QSizePolicy, QStatusBar, QTableWidget,
+    QTableWidgetItem, QTextBrowser, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -90,7 +90,7 @@ class Ui_MainWindow(object):
         __qtablewidgetitem1 = QTableWidgetItem()
         self.imageList.setHorizontalHeaderItem(1, __qtablewidgetitem1)
         self.imageList.setObjectName(u"imageList")
-        self.imageList.setGeometry(QRect(10, 270, 321, 571))
+        self.imageList.setGeometry(QRect(10, 270, 321, 531))
         self.imageList.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.series = QComboBox(self.centralwidget)
         self.series.setObjectName(u"series")
@@ -98,6 +98,14 @@ class Ui_MainWindow(object):
         self.serieslabel_2 = QLabel(self.centralwidget)
         self.serieslabel_2.setObjectName(u"serieslabel_2")
         self.serieslabel_2.setGeometry(QRect(180, 60, 67, 17))
+        self.searchCombo = QComboBox(self.centralwidget)
+        self.searchCombo.addItem("")
+        self.searchCombo.addItem("")
+        self.searchCombo.setObjectName(u"searchCombo")
+        self.searchCombo.setGeometry(QRect(10, 820, 91, 25))
+        self.search = QLineEdit(self.centralwidget)
+        self.search.setObjectName(u"search")
+        self.search.setGeometry(QRect(110, 820, 221, 25))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
@@ -139,6 +147,9 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem1 = self.imageList.horizontalHeaderItem(1)
         ___qtablewidgetitem1.setText(QCoreApplication.translate("MainWindow", u"\ud30c\uc77c\uba85", None));
         self.serieslabel_2.setText(QCoreApplication.translate("MainWindow", u"\uc2dc\ub9ac\uc988", None))
+        self.searchCombo.setItemText(0, QCoreApplication.translate("MainWindow", u"\uc7a5\uc18c", None))
+        self.searchCombo.setItemText(1, QCoreApplication.translate("MainWindow", u"\ud30c\uc77c\uba85", None))
+
         self.menu.setTitle(QCoreApplication.translate("MainWindow", u"\ub370\uc774\ud130\ubca0\uc774\uc2a4", None))
     # retranslateUi
 

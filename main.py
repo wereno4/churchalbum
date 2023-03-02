@@ -35,6 +35,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.imageList.cellClicked.connect(self.show_image)
         self.addmenu.triggered.connect(self.addWindow)
         self.modify.triggered.connect(self.modifyWindow)
+        self.search.textChanged.connect(self.search_list)
 
 
 
@@ -152,6 +153,85 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 x += 1
             y += 1
 
+
+    def search_list(self):
+        self.imageList.clearContents()
+        condition = "SELECT church, file_name FROM church"
+        whereand = True
+        if self.calendertype.currentText() != "-" and self.calendertype.currentText() != "":
+            if whereand:
+                condition = condition + f" WHERE type = '{self.calendertype.currentText()}'"
+            else:
+                condition = condition + f" AND type = '{self.calendertype.currentText()}'"
+            whereand = False
+        if self.theme.currentText() != "-" and self.theme.currentText()  != "":
+            if whereand:
+                condition = condition + f" WHERE theme = '{self.theme.currentText()}'"
+            else:
+                condition = condition + f" AND theme = '{self.theme.currentText()}'"
+            whereand = False
+        if self.series.currentText() != "-" and self.series.currentText()  != "":
+            if whereand:
+                condition = condition + f" WHERE series = '{self.series.currentText()}'"
+            else:
+                condition = condition + f" AND series = '{self.series.currentText()}'"
+            whereand = False
+        if self.year.currentText() != "-" and self.year.currentText()  != "":
+            if whereand:
+                condition = condition + f" WHERE year = {self.year.currentText()}"
+            else:
+                condition = condition + f" AND year = {self.year.currentText()}"
+            whereand = False
+        if self.month.currentText() != "-" and self.month.currentText() != "":
+            if whereand:
+                condition = condition + f" WHERE month = {self.month.currentText()}"
+            else:
+                condition = condition + f" AND month = {self.month.currentText()}"
+            whereand = False
+        if self.country.currentText() != "-" and self.country.currentText()  != "":
+            if whereand:
+                condition = condition + f" WHERE country = '{self.country.currentText()}'"
+            else:
+                condition = condition + f" AND country = '{self.country.currentText()}'"
+            whereand = False
+        if self.region.currentText() != "-" and self.region.currentText()  != "":
+            if whereand:
+                condition = condition + f" WHERE region = '{self.region.currentText()}'"
+            else:
+                condition = condition + f" AND region = '{self.region.currentText()}'"
+            whereand = False
+        if self.church.currentText() != "-" and self.church.currentText() != "":
+            if whereand:
+                condition = condition + f" WHERE church = '{self.church.currentText()}'"
+            else:
+                condition = condition + f" AND church = '{self.church.currentText()}'"
+            whereand = False
+        if self.searchCombo.currentText() == "장소":
+            if whereand:
+                condition = condition + f" WHERE church LIKE '%{self.search.text()}%'"
+            else:
+                condition = condition + f" AND church LIKE '%{self.search.text()}%'"
+            whereand = False
+        elif self.searchCombo.currentText() == "파일명":
+            if whereand:
+                condition = condition + f" WHERE file_name LIKE '%{self.search.text()}%'"
+            else:
+                condition = condition + f" AND file_name LIKE '%{self.search.text()}%'"
+            whereand = False
+
+        cur.execute(condition)
+        image_list = cur.fetchall()
+        self.imageList.setRowCount(len(image_list))
+        
+        y = 0
+        for row in image_list:
+            x = 0
+            for item in row:
+                tableItem = QTableWidgetItem(item)
+                self.imageList.setItem(y, x, tableItem)
+                x += 1
+            y += 1
+
         
     def month_listing(self):
         year = self.year.currentText()
@@ -230,7 +310,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         elif pixmap.size().width() <= pixmap.size().height():
             pixmap = pixmap.scaledToHeight(self.image.height())
         self.image.setPixmap(pixmap)
-        cur.execute(f"SELECT note, image_id, type, series, year, month, country, region, church FROM church WHERE file_name = '{self.imageList.item(self.imageList.currentRow(), 1).text()}'")
+        cur.execute(f"SELECT note, image_id, type, theme, series, year, month, country, region, church FROM church WHERE file_name = '{self.imageList.item(self.imageList.currentRow(), 1).text()}'")
         note, id, *information = cur.fetchall()[0]
         information = [str(x) for x in information]
         note = note + "\n" if note != "" else note
