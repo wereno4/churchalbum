@@ -385,6 +385,7 @@ class findDialog(QDialog, findWindow.Ui_Dialog):
 
     def combobox_generate(self):
         self.calendertype.clear()
+        self.theme.clear()
         self.series.clear()
         self.year.clear()
         self.month.clear()
@@ -400,13 +401,13 @@ class findDialog(QDialog, findWindow.Ui_Dialog):
         for item in types_list:
             self.calendertype.addItem(item)
     
-        self.series.addItem("-")
-        cur.execute("SELECT series FROM church")
-        series_list = cur.fetchall()
-        series_list = [x[0] for x in series_list]
-        series_list = list(set(series_list))
-        for item in series_list:
-            self.series.addItem(item)
+        self.theme.addItem("-")
+        cur.execute("SELECT theme FROM church")
+        theme_list = cur.fetchall()
+        theme_list = [x[0] for x in theme_list]
+        theme_list = list(set(theme_list))
+        for item in theme_list:
+            self.theme.addItem(item)
 
         self.year.addItem("-")
         cur.execute("SELECT year FROM church")
@@ -518,7 +519,7 @@ class findDialog(QDialog, findWindow.Ui_Dialog):
         else:
             self.series.clear()
             self.series.addItem("-")
-            cur.execute(f"SELECT series FROM church WHERE theme = {theme}")
+            cur.execute(f"SELECT series FROM church WHERE theme = '{theme}'")
             series_list = cur.fetchall()
             series_list = [x[0] for x in series_list]
             series_list = list(set(series_list))
