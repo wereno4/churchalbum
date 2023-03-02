@@ -285,8 +285,14 @@ class modifyDialog(QDialog, modifyWindow.Ui_Dialog):
         self.cancelButton.clicked.connect(self.reject)
         self.deleteButton.clicked.connect(self.delete_data)
         self.modifyButton.clicked.connect(self.modify_data)
+        self.file_load.clicked.connect(self.file_browse)
 
 
+    def file_browse(self):
+        fname = QFileDialog.getOpenFileName(self, "", "", "Image File(*.jpg *.jpeg *.gif *.png *.webp *.tif *.tiff)")
+        if fname[0]:
+            self.file.setText(fname[0])
+            
     def delete_data(self):
         buttonReply = QMessageBox.warning(self, "데이터가 지워집니다.",
                                           "해당 데이터를 지우겠습니까?",
