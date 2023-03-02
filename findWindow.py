@@ -36,9 +36,9 @@ class Ui_Dialog(object):
         self.typelabel = QLabel(Dialog)
         self.typelabel.setObjectName(u"typelabel")
         self.typelabel.setGeometry(QRect(170, 700, 67, 17))
-        self.serieslabel = QLabel(Dialog)
-        self.serieslabel.setObjectName(u"serieslabel")
-        self.serieslabel.setGeometry(QRect(170, 750, 67, 17))
+        self.themelabel = QLabel(Dialog)
+        self.themelabel.setObjectName(u"themelabel")
+        self.themelabel.setGeometry(QRect(170, 750, 67, 17))
         self.yearlabel = QLabel(Dialog)
         self.yearlabel.setObjectName(u"yearlabel")
         self.yearlabel.setGeometry(QRect(10, 700, 67, 17))
@@ -57,9 +57,9 @@ class Ui_Dialog(object):
         self.regionlabel = QLabel(Dialog)
         self.regionlabel.setObjectName(u"regionlabel")
         self.regionlabel.setGeometry(QRect(670, 700, 67, 17))
-        self.series = QComboBox(Dialog)
-        self.series.setObjectName(u"series")
-        self.series.setGeometry(QRect(170, 770, 321, 25))
+        self.theme = QComboBox(Dialog)
+        self.theme.setObjectName(u"theme")
+        self.theme.setGeometry(QRect(170, 770, 151, 25))
         self.churchlabel = QLabel(Dialog)
         self.churchlabel.setObjectName(u"churchlabel")
         self.churchlabel.setGeometry(QRect(500, 750, 67, 17))
@@ -71,8 +71,8 @@ class Ui_Dialog(object):
         self.buttonBox.setGeometry(QRect(830, 760, 311, 31))
         self.buttonBox.setStandardButtons(QDialogButtonBox.Cancel|QDialogButtonBox.Ok)
         self.tableWidget = QTableWidget(Dialog)
-        if (self.tableWidget.columnCount() < 10):
-            self.tableWidget.setColumnCount(10)
+        if (self.tableWidget.columnCount() < 11):
+            self.tableWidget.setColumnCount(11)
         __qtablewidgetitem = QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(0, __qtablewidgetitem)
         __qtablewidgetitem1 = QTableWidgetItem()
@@ -93,10 +93,18 @@ class Ui_Dialog(object):
         self.tableWidget.setHorizontalHeaderItem(8, __qtablewidgetitem8)
         __qtablewidgetitem9 = QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(9, __qtablewidgetitem9)
+        __qtablewidgetitem10 = QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(10, __qtablewidgetitem10)
         self.tableWidget.setObjectName(u"tableWidget")
         self.tableWidget.setGeometry(QRect(0, 10, 1141, 681))
         self.tableWidget.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.tableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.serieslabel = QLabel(Dialog)
+        self.serieslabel.setObjectName(u"serieslabel")
+        self.serieslabel.setGeometry(QRect(340, 750, 67, 17))
+        self.series = QComboBox(Dialog)
+        self.series.setObjectName(u"series")
+        self.series.setGeometry(QRect(340, 770, 151, 25))
 
         self.retranslateUi(Dialog)
 
@@ -107,7 +115,7 @@ class Ui_Dialog(object):
         Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"\uc218\uc815\ud560 \ubaa9\ub85d \ucc3e\uae30", None))
         self.monthlabel.setText(QCoreApplication.translate("Dialog", u"\uc6d4", None))
         self.typelabel.setText(QCoreApplication.translate("Dialog", u"\ub2ec\ub825 \uc885\ub958", None))
-        self.serieslabel.setText(QCoreApplication.translate("Dialog", u"\uc2dc\ub9ac\uc988", None))
+        self.themelabel.setText(QCoreApplication.translate("Dialog", u"\ud14c\ub9c8", None))
         self.yearlabel.setText(QCoreApplication.translate("Dialog", u"\uc5f0\ub3c4", None))
         self.countrylabel.setText(QCoreApplication.translate("Dialog", u"\uad6d\uac00", None))
         self.regionlabel.setText(QCoreApplication.translate("Dialog", u"\uc9c0\uc5ed", None))
@@ -117,20 +125,23 @@ class Ui_Dialog(object):
         ___qtablewidgetitem1 = self.tableWidget.horizontalHeaderItem(1)
         ___qtablewidgetitem1.setText(QCoreApplication.translate("Dialog", u"\ub2ec\ub825 \uc885\ub958", None));
         ___qtablewidgetitem2 = self.tableWidget.horizontalHeaderItem(2)
-        ___qtablewidgetitem2.setText(QCoreApplication.translate("Dialog", u"\uc2dc\ub9ac\uc988", None));
+        ___qtablewidgetitem2.setText(QCoreApplication.translate("Dialog", u"\ud14c\ub9c8", None));
         ___qtablewidgetitem3 = self.tableWidget.horizontalHeaderItem(3)
-        ___qtablewidgetitem3.setText(QCoreApplication.translate("Dialog", u"\uc5f0\ub3c4", None));
+        ___qtablewidgetitem3.setText(QCoreApplication.translate("Dialog", u"\uc2dc\ub9ac\uc988", None));
         ___qtablewidgetitem4 = self.tableWidget.horizontalHeaderItem(4)
-        ___qtablewidgetitem4.setText(QCoreApplication.translate("Dialog", u"\uc6d4", None));
+        ___qtablewidgetitem4.setText(QCoreApplication.translate("Dialog", u"\uc5f0\ub3c4", None));
         ___qtablewidgetitem5 = self.tableWidget.horizontalHeaderItem(5)
-        ___qtablewidgetitem5.setText(QCoreApplication.translate("Dialog", u"\uad6d\uac00", None));
+        ___qtablewidgetitem5.setText(QCoreApplication.translate("Dialog", u"\uc6d4", None));
         ___qtablewidgetitem6 = self.tableWidget.horizontalHeaderItem(6)
-        ___qtablewidgetitem6.setText(QCoreApplication.translate("Dialog", u"\uc9c0\uc5ed", None));
+        ___qtablewidgetitem6.setText(QCoreApplication.translate("Dialog", u"\uad6d\uac00", None));
         ___qtablewidgetitem7 = self.tableWidget.horizontalHeaderItem(7)
-        ___qtablewidgetitem7.setText(QCoreApplication.translate("Dialog", u"\uc7a5\uc18c", None));
+        ___qtablewidgetitem7.setText(QCoreApplication.translate("Dialog", u"\uc9c0\uc5ed", None));
         ___qtablewidgetitem8 = self.tableWidget.horizontalHeaderItem(8)
-        ___qtablewidgetitem8.setText(QCoreApplication.translate("Dialog", u"\ud30c\uc77c\uba85", None));
+        ___qtablewidgetitem8.setText(QCoreApplication.translate("Dialog", u"\uc7a5\uc18c", None));
         ___qtablewidgetitem9 = self.tableWidget.horizontalHeaderItem(9)
-        ___qtablewidgetitem9.setText(QCoreApplication.translate("Dialog", u"\ube44\uace0", None));
+        ___qtablewidgetitem9.setText(QCoreApplication.translate("Dialog", u"\ud30c\uc77c\uba85", None));
+        ___qtablewidgetitem10 = self.tableWidget.horizontalHeaderItem(10)
+        ___qtablewidgetitem10.setText(QCoreApplication.translate("Dialog", u"\ube44\uace0", None));
+        self.serieslabel.setText(QCoreApplication.translate("Dialog", u"\uc2dc\ub9ac\uc988", None))
     # retranslateUi
 

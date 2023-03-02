@@ -59,7 +59,7 @@
     <string>달력 종류</string>
    </property>
   </widget>
-  <widget class="QLabel" name="serieslabel">
+  <widget class="QLabel" name="themelabel">
    <property name="geometry">
     <rect>
      <x>170</x>
@@ -69,7 +69,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>시리즈</string>
+    <string>테마</string>
    </property>
   </widget>
   <widget class="QLabel" name="yearlabel">
@@ -141,12 +141,12 @@
     <string>지역</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="series">
+  <widget class="QComboBox" name="theme">
    <property name="geometry">
     <rect>
      <x>170</x>
      <y>770</y>
-     <width>321</width>
+     <width>151</width>
      <height>25</height>
     </rect>
    </property>
@@ -214,6 +214,11 @@
    </column>
    <column>
     <property name="text">
+     <string>테마</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
      <string>시리즈</string>
     </property>
    </column>
@@ -252,6 +257,29 @@
      <string>비고</string>
     </property>
    </column>
+  </widget>
+  <widget class="QLabel" name="serieslabel">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>750</y>
+     <width>67</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>시리즈</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="series">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>770</y>
+     <width>151</width>
+     <height>25</height>
+    </rect>
+   </property>
   </widget>
  </widget>
  <resources/>

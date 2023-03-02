@@ -81,7 +81,7 @@
     <string>국가</string>
    </property>
   </widget>
-  <widget class="QLabel" name="serieslabel">
+  <widget class="QLabel" name="themelabel">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -91,7 +91,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>시리즈</string>
+    <string>테마</string>
    </property>
   </widget>
   <widget class="QLabel" name="churchlabel">
@@ -130,12 +130,12 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLineEdit" name="series">
+  <widget class="QLineEdit" name="theme">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>80</y>
-     <width>321</width>
+     <width>151</width>
      <height>25</height>
     </rect>
    </property>
@@ -249,6 +249,29 @@
      <y>360</y>
      <width>311</width>
      <height>111</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="serieslabel">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>60</y>
+     <width>67</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>시리즈</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="series">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>80</y>
+     <width>151</width>
+     <height>25</height>
     </rect>
    </property>
   </widget>

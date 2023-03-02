@@ -9,7 +9,7 @@ import os, shutil
 conn = sqlite3.connect("./church.db")
 cur = conn.cursor()
 
-cur.execute("CREATE TABLE IF NOT EXISTS church([image_id] INTEGER PRIMARY KEY, [type] TEXT, [series] TEXT, [year] INTEGER, [month] INTEGER, [country] TEXT, [region] TEXT, [church] TEXT, [file_name] TEXT, [note] TEXT)")
+cur.execute("CREATE TABLE IF NOT EXISTS church([image_id] INTEGER PRIMARY KEY, [type] TEXT, [theme] TEXT, [series] TEXT, [year] INTEGER, [month] INTEGER, [country] TEXT, [region] TEXT, [church] TEXT, [file_name] TEXT, [note] TEXT)")
 conn.commit()
 
 if not os.path.exists("./img"):
@@ -26,6 +26,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.calendertype.currentIndexChanged.connect(self.find_image)
         self.series.currentIndexChanged.connect(self.find_image)
+        self.theme.currentIndexChanged.connect(self.series_listing)
         self.year.currentIndexChanged.connect(self.month_listing)
         self.month.currentIndexChanged.connect(self.find_image)
         self.country.currentIndexChanged.connect(self.for_country)
@@ -39,6 +40,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def combobox_generate(self):
         self.calendertype.clear()
+        self.theme.clear()
         self.series.clear()
         self.year.clear()
         self.month.clear()
@@ -54,13 +56,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         for item in types_list:
             self.calendertype.addItem(item)
     
-        self.series.addItem("-")
-        cur.execute("SELECT series FROM church")
-        series_list = cur.fetchall()
-        series_list = [x[0] for x in series_list]
-        series_list = list(set(series_list))
-        for item in series_list:
-            self.series.addItem(item)
+        self.theme.addItem("-")
+        cur.execute("SELECT theme FROM church")
+        theme_list = cur.fetchall()
+        theme_list = [x[0] for x in theme_list]
+        theme_list = list(set(theme_list))
+        for item in theme_list:
+            self.theme.addItem(item)
 
         self.year.addItem("-")
         cur.execute("SELECT year FROM church")
@@ -94,6 +96,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 condition = condition + f" WHERE type = '{self.calendertype.currentText()}'"
             else:
                 condition = condition + f" AND type = '{self.calendertype.currentText()}'"
+            whereand = False
+        if self.theme.currentText() != "-" and self.theme.currentText()  != "":
+            if whereand:
+                condition = condition + f" WHERE theme = '{self.theme.currentText()}'"
+            else:
+                condition = condition + f" AND theme = '{self.theme.currentText()}'"
             whereand = False
         if self.series.currentText() != "-" and self.series.currentText()  != "":
             if whereand:
@@ -150,6 +158,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if year == "-" or year == "":
             self.month.clear()
         else:
+            self.month.clear()
             self.month.addItem("-")
             cur.execute(f"SELECT month FROM church WHERE year = {year}")
             month_list = cur.fetchall()
@@ -160,11 +169,29 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.month.setItemText(0, "-")
         self.find_image()
 
+    def series_listing(self):
+        theme = self.theme.currentText()
+        if theme == "-" or theme == "":
+            self.series.clear()
+        else:
+            self.series.clear()
+            self.series.addItem("-")
+            cur.execute(f"SELECT series FROM church WHERE theme = '{theme}'")
+            series_list = cur.fetchall()
+            series_list = [x[0] for x in series_list]
+            series_list = list(set(series_list))
+            for item in series_list:
+                self.series.addItem(str(item))
+            self.series.setItemText(0, "-")
+        self.find_image()
+
+
     def region_listing(self):
         country = self.country.currentText()
         if country == "-" or country == "":
             self.region.clear()
         else:
+            self.region.clear()
             self.region.addItem("-")
             cur.execute(f"SELECT region FROM church WHERE country = '{country}'")
             region_list = cur.fetchall()
@@ -181,6 +208,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if region == "-" or country == "-" or region == "" or country == "":
             self.church.clear()
         else:
+            self.church.clear()
             self.church.addItem("-")
             cur.execute(f"SELECT church FROM church WHERE country = '{country}' and region = '{region}'")
             church_list = cur.fetchall()
@@ -257,7 +285,7 @@ class addDialog(QDialog, addWindow.Ui_Dialog):
 
         shutil.copy(self.file.text(), './img/'+file_name)
 
-        cur.execute(f"INSERT INTO church VALUES ({key_to_add}, '{self.calendertype.text()}', '{self.series.text()}', {self.year.text()}, {self.month.text()}, '{self.country.text()}', '{self.region.text()}', '{self.church.text()}', '{file_name}', '{self.note.toPlainText()}')")
+        cur.execute(f"INSERT INTO church VALUES ({key_to_add}, '{self.calendertype.text()}', '{self.theme.text()}', '{self.series.text()}', {self.year.text()}, {self.month.text()}, '{self.country.text()}', '{self.region.text()}', '{self.church.text()}', '{file_name}', '{self.note.toPlainText()}')")
         conn.commit()
 
     
@@ -269,18 +297,19 @@ class modifyDialog(QDialog, modifyWindow.Ui_Dialog):
         self.setupUi(self)
 
         self.currentID = ID
-        cur.execute(f"SELECT type, series, year, month, country, region, church, file_name, note FROM church WHERE image_id = {self.currentID}")
+        cur.execute(f"SELECT type, theme, series, year, month, country, region, church, file_name, note FROM church WHERE image_id = {self.currentID}")
         result = cur.fetchall()[0]
         self.calendertype.setText(result[0])
-        self.series.setText(result[1])
-        self.year.setText(str(result[2]))
-        self.month.setText(str(result[3]))
-        self.country.setText(result[4])
-        self.region.setText(result[5])
-        self.church.setText(result[6])
-        self.file.setText(result[7])
-        self.note.setPlainText(result[8])
-        self.oldfilename = result[7]
+        self.theme.setText(result[1])
+        self.series.setText(result[2])
+        self.year.setText(str(result[3]))
+        self.month.setText(str(result[4]))
+        self.country.setText(result[5])
+        self.region.setText(result[6])
+        self.church.setText(result[7])
+        self.file.setText(result[8])
+        self.note.setPlainText(result[9])
+        self.oldfilename = result[8]
 
         self.cancelButton.clicked.connect(self.reject)
         self.deleteButton.clicked.connect(self.delete_data)
@@ -292,7 +321,7 @@ class modifyDialog(QDialog, modifyWindow.Ui_Dialog):
         fname = QFileDialog.getOpenFileName(self, "", "", "Image File(*.jpg *.jpeg *.gif *.png *.webp *.tif *.tiff)")
         if fname[0]:
             self.file.setText(fname[0])
-            
+
     def delete_data(self):
         buttonReply = QMessageBox.warning(self, "데이터가 지워집니다.",
                                           "해당 데이터를 지우겠습니까?",
@@ -326,7 +355,7 @@ class modifyDialog(QDialog, modifyWindow.Ui_Dialog):
                 file_changed = True
             elif file_name == self.file.text():
                 file_changed = False
-            cur.execute(f"UPDATE church SET type='{self.calendertype.text()}', series='{self.series.text()}', year={self.year.text()}, month={self.month.text()}, country='{self.country.text()}', region='{self.region.text()}', church='{self.church.text()}', file_name='{file_name}', note='{self.note.toPlainText()}' WHERE image_id = {self.currentID}")
+            cur.execute(f"UPDATE church SET type='{self.calendertype.text()}', theme='{self.theme.text()}', series='{self.series.text()}', year={self.year.text()}, month={self.month.text()}, country='{self.country.text()}', region='{self.region.text()}', church='{self.church.text()}', file_name='{file_name}', note='{self.note.toPlainText()}' WHERE image_id = {self.currentID}")
             conn.commit()
             if file_changed:
                 shutil.copy(self.file.text(), './img/'+file_name)
@@ -342,6 +371,7 @@ class findDialog(QDialog, findWindow.Ui_Dialog):
 
         self.calendertype.currentIndexChanged.connect(self.find_image)
         self.series.currentIndexChanged.connect(self.find_image)
+        self.theme.currentIndexChanged.connect(self.series_listing)
         self.year.currentIndexChanged.connect(self.month_listing)
         self.month.currentIndexChanged.connect(self.find_image)
         self.country.currentIndexChanged.connect(self.for_country)
@@ -403,7 +433,7 @@ class findDialog(QDialog, findWindow.Ui_Dialog):
 
     def find_image(self):
         self.tableWidget.clearContents()
-        condition = "SELECT image_id, type, series, year, month, country, region, church, file_name, note FROM church"
+        condition = "SELECT image_id, type, theme, series, year, month, country, region, church, file_name, note FROM church"
         whereand = True
         if self.calendertype.currentText() != "-" and self.calendertype.currentText() != "":
             if whereand:
@@ -411,6 +441,12 @@ class findDialog(QDialog, findWindow.Ui_Dialog):
             else:
                 condition = condition + f" AND type = '{self.calendertype.currentText()}'"
             whereand = False
+        if self.theme.currentText() != "-" and self.theme.currentText() != "":
+            if whereand:
+                condition = condition + f" WHERE theme = '{self.theme.currentText()}'"
+            else:
+                condition = condition + f" AND theme = '{self.theme.currentText()}'"
+            whereand = False            
         if self.series.currentText() != "-" and self.series.currentText()  != "":
             if whereand:
                 condition = condition + f" WHERE series = '{self.series.currentText()}'"
@@ -473,6 +509,22 @@ class findDialog(QDialog, findWindow.Ui_Dialog):
             for item in month_list:
                 self.month.addItem(str(item))
             self.month.setItemText(0, "-")
+        self.find_image()
+
+    def series_listing(self):
+        theme = self.theme.currentText()
+        if theme == "-" or theme == "":
+            self.series.clear()
+        else:
+            self.series.clear()
+            self.series.addItem("-")
+            cur.execute(f"SELECT series FROM church WHERE theme = {theme}")
+            series_list = cur.fetchall()
+            series_list = [x[0] for x in series_list]
+            series_list = list(set(series_list))
+            for item in series_list:
+                self.series.addItem(str(item))
+            self.series.setItemText(0, "-")
         self.find_image()
 
     def region_listing(self):
