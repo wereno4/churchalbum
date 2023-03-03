@@ -2,7 +2,7 @@ import sqlite3
 from PySide6.QtWidgets import *
 from PySide6.QtGui import QPixmap
 from mainWindow import Ui_MainWindow
-import addWindow, modifyWindow, findWindow
+import addWindow, modifyWindow, findWindow, stripWindow
 import os, shutil
 
 
@@ -24,6 +24,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.combobox_generate()
         self.find_image()
 
+        self.imageList.verticalHeader().hide()
+        self.imageList.setColumnWidth(0, self.imageList.width()*1/10)
+        self.imageList.setColumnWidth(1, self.imageList.width()*4/10)
+        self.imageList.setColumnWidth(2, self.imageList.width()*3/10)
+        
+
         self.calendertype.currentIndexChanged.connect(self.find_image)
         self.series.currentIndexChanged.connect(self.find_image)
         self.theme.currentIndexChanged.connect(self.series_listing)
@@ -36,6 +42,11 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.addmenu.triggered.connect(self.addWindow)
         self.modify.triggered.connect(self.modifyWindow)
         self.search.textChanged.connect(self.search_list)
+        self.strip.triggered.connect(self.strip_data)
+        self.fileDelete.triggered.connect(self.file_delete)
+
+
+        print(self.region.count())
 
 
 
@@ -92,49 +103,49 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.imageList.clearContents()
         condition = "SELECT image_id, church, file_name FROM church"
         whereand = True
-        if self.calendertype.currentText() != "-" and self.calendertype.currentText() != "":
+        if not (self.calendertype.currentText() == "-" or (self.calendertype.count() == 0 and self.calendertype.currentText() == "")):
             if whereand:
                 condition = condition + f" WHERE type = '{self.calendertype.currentText()}'"
             else:
                 condition = condition + f" AND type = '{self.calendertype.currentText()}'"
             whereand = False
-        if self.theme.currentText() != "-" and self.theme.currentText()  != "":
+        if not (self.theme.currentText() == "-" or (self.theme.count() == 0 and self.theme.currentText()  == "")):
             if whereand:
                 condition = condition + f" WHERE theme = '{self.theme.currentText()}'"
             else:
                 condition = condition + f" AND theme = '{self.theme.currentText()}'"
             whereand = False
-        if self.series.currentText() != "-" and self.series.currentText()  != "":
+        if not (self.series.currentText() == "-" or (self.series.count() == 0 and self.series.currentText()  == "")):
             if whereand:
                 condition = condition + f" WHERE series = '{self.series.currentText()}'"
             else:
                 condition = condition + f" AND series = '{self.series.currentText()}'"
             whereand = False
-        if self.year.currentText() != "-" and self.year.currentText()  != "":
+        if not (self.year.currentText() == "-" or (self.series.count() == 0 and self.year.currentText()  == "")):
             if whereand:
                 condition = condition + f" WHERE year = {self.year.currentText()}"
             else:
                 condition = condition + f" AND year = {self.year.currentText()}"
             whereand = False
-        if self.month.currentText() != "-" and self.month.currentText() != "":
+        if not (self.month.currentText() == "-" or (self.month.count() == 0 and self.month.currentText() == "")):
             if whereand:
                 condition = condition + f" WHERE month = {self.month.currentText()}"
             else:
                 condition = condition + f" AND month = {self.month.currentText()}"
             whereand = False
-        if self.country.currentText() != "-" and self.country.currentText()  != "":
+        if not (self.country.currentText() == "-"  or (self.country.count() == 0 and self.country.currentText()  == "")):
             if whereand:
                 condition = condition + f" WHERE country = '{self.country.currentText()}'"
             else:
                 condition = condition + f" AND country = '{self.country.currentText()}'"
             whereand = False
-        if self.region.currentText() != "-" and self.region.currentText()  != "":
+        if not (self.region.currentText() == "-" or (self.region.count() == 0 and self.region.currentText()  == "")):
             if whereand:
                 condition = condition + f" WHERE region = '{self.region.currentText()}'"
             else:
                 condition = condition + f" AND region = '{self.region.currentText()}'"
             whereand = False
-        if self.church.currentText() != "-" and self.church.currentText() != "":
+        if not (self.church.currentText() == "-" or (self.church.count() == 0 and self.church.currentText() == "")):
             if whereand:
                 condition = condition + f" WHERE church = '{self.church.currentText()}'"
             else:
@@ -158,49 +169,49 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.imageList.clearContents()
         condition = "SELECT image_id, church, file_name FROM church"
         whereand = True
-        if self.calendertype.currentText() != "-" and self.calendertype.currentText() != "":
+        if not (self.calendertype.currentText() == "-" or (self.calendertype.count() == 0 and self.calendertype.currentText() == "")):
             if whereand:
                 condition = condition + f" WHERE type = '{self.calendertype.currentText()}'"
             else:
                 condition = condition + f" AND type = '{self.calendertype.currentText()}'"
             whereand = False
-        if self.theme.currentText() != "-" and self.theme.currentText()  != "":
+        if not (self.theme.currentText() == "-" or (self.theme.count() == 0 and self.theme.currentText()  == "")):
             if whereand:
                 condition = condition + f" WHERE theme = '{self.theme.currentText()}'"
             else:
                 condition = condition + f" AND theme = '{self.theme.currentText()}'"
             whereand = False
-        if self.series.currentText() != "-" and self.series.currentText()  != "":
+        if not (self.series.currentText() == "-" or (self.series.count() == 0 and self.series.currentText()  == "")):
             if whereand:
                 condition = condition + f" WHERE series = '{self.series.currentText()}'"
             else:
                 condition = condition + f" AND series = '{self.series.currentText()}'"
             whereand = False
-        if self.year.currentText() != "-" and self.year.currentText()  != "":
+        if not (self.year.currentText() == "-" or (self.series.count() == 0 and self.year.currentText()  == "")):
             if whereand:
                 condition = condition + f" WHERE year = {self.year.currentText()}"
             else:
                 condition = condition + f" AND year = {self.year.currentText()}"
             whereand = False
-        if self.month.currentText() != "-" and self.month.currentText() != "":
+        if not (self.month.currentText() == "-" or (self.month.count() == 0 and self.month.currentText() == "")):
             if whereand:
                 condition = condition + f" WHERE month = {self.month.currentText()}"
             else:
                 condition = condition + f" AND month = {self.month.currentText()}"
             whereand = False
-        if self.country.currentText() != "-" and self.country.currentText()  != "":
+        if not (self.country.currentText() == "-"  or (self.country.count() == 0 and self.country.currentText()  == "")):
             if whereand:
                 condition = condition + f" WHERE country = '{self.country.currentText()}'"
             else:
                 condition = condition + f" AND country = '{self.country.currentText()}'"
             whereand = False
-        if self.region.currentText() != "-" and self.region.currentText()  != "":
+        if not (self.region.currentText() == "-" or (self.region.count() == 0 and self.region.currentText()  == "")):
             if whereand:
                 condition = condition + f" WHERE region = '{self.region.currentText()}'"
             else:
                 condition = condition + f" AND region = '{self.region.currentText()}'"
             whereand = False
-        if self.church.currentText() != "-" and self.church.currentText() != "":
+        if not (self.church.currentText() == "-" or (self.church.count() == 0 and self.church.currentText() == "")):
             if whereand:
                 condition = condition + f" WHERE church = '{self.church.currentText()}'"
             else:
@@ -235,7 +246,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         
     def month_listing(self):
         year = self.year.currentText()
-        if year == "-" or year == "":
+        if year == "-" or (self.year.count() == 0 and year == ""):
             self.month.clear()
         else:
             self.month.clear()
@@ -251,7 +262,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def series_listing(self):
         theme = self.theme.currentText()
-        if theme == "-" or theme == "":
+        if theme == "-" or (self.theme.count() == 0 and theme == ""):
             self.series.clear()
         else:
             self.series.clear()
@@ -268,7 +279,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def region_listing(self):
         country = self.country.currentText()
-        if country == "-" or country == "":
+        if country == "-" or (self.country.count() == 0 and country == ""):
             self.region.clear()
         else:
             self.region.clear()
@@ -285,7 +296,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def church_listing(self):
         country = self.country.currentText()
         region = self.region.currentText()
-        if region == "-" or country == "-" or region == "" or country == "":
+        if region == "-" or (self.country.count() == 0 and country == "") or (self.region.count() == 0 and region == "") or country == "-":
             self.church.clear()
         else:
             self.church.clear()
@@ -325,6 +336,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         dialog = findDialog()
         dialog.exec()
         self.combobox_generate()
+        self.image.clear()
+        self.note.clear()
+
+    def strip_data(self):
+        dialog = stripDialog()
+        dialog.exec()
+        self.combobox_generate()
+        self.image.clear()
+        self.note.clear()
+    
+    def file_delete(self):
+        dialog = fileDeleteDialog()
+        dialog.exec()
 
 class addDialog(QDialog, addWindow.Ui_Dialog):
     def __init__(self, parent=None):
@@ -367,8 +391,6 @@ class addDialog(QDialog, addWindow.Ui_Dialog):
 
         cur.execute(f"INSERT INTO church VALUES ({key_to_add}, '{self.calendertype.text()}', '{self.theme.text()}', '{self.series.text()}', {self.year.text()}, {self.month.text()}, '{self.country.text()}', '{self.region.text()}', '{self.church.text()}', '{file_name}', '{self.note.toPlainText()}')")
         conn.commit()
-
-    
         self.accept()
 
 class modifyDialog(QDialog, modifyWindow.Ui_Dialog):
@@ -516,49 +538,49 @@ class findDialog(QDialog, findWindow.Ui_Dialog):
         self.tableWidget.clearContents()
         condition = "SELECT image_id, type, theme, series, year, month, country, region, church, file_name, note FROM church"
         whereand = True
-        if self.calendertype.currentText() != "-" and self.calendertype.currentText() != "":
+        if not (self.calendertype.currentText() == "-" or (self.calendertype.count() == 0 and self.calendertype.currentText() == "")):
             if whereand:
                 condition = condition + f" WHERE type = '{self.calendertype.currentText()}'"
             else:
                 condition = condition + f" AND type = '{self.calendertype.currentText()}'"
             whereand = False
-        if self.theme.currentText() != "-" and self.theme.currentText() != "":
+        if not (self.theme.currentText() == "-" or (self.theme.count() == 0 and self.theme.currentText()  == "")):
             if whereand:
                 condition = condition + f" WHERE theme = '{self.theme.currentText()}'"
             else:
                 condition = condition + f" AND theme = '{self.theme.currentText()}'"
-            whereand = False            
-        if self.series.currentText() != "-" and self.series.currentText()  != "":
+            whereand = False
+        if not (self.series.currentText() == "-" or (self.series.count() == 0 and self.series.currentText()  == "")):
             if whereand:
                 condition = condition + f" WHERE series = '{self.series.currentText()}'"
             else:
                 condition = condition + f" AND series = '{self.series.currentText()}'"
             whereand = False
-        if self.year.currentText() != "-" and self.year.currentText()  != "":
+        if not (self.year.currentText() == "-" or (self.series.count() == 0 and self.year.currentText()  == "")):
             if whereand:
                 condition = condition + f" WHERE year = {self.year.currentText()}"
             else:
                 condition = condition + f" AND year = {self.year.currentText()}"
             whereand = False
-        if self.month.currentText() != "-" and self.month.currentText() != "":
+        if not (self.month.currentText() == "-" or (self.month.count() == 0 and self.month.currentText() == "")):
             if whereand:
                 condition = condition + f" WHERE month = {self.month.currentText()}"
             else:
                 condition = condition + f" AND month = {self.month.currentText()}"
             whereand = False
-        if self.country.currentText() != "-" and self.country.currentText()  != "":
+        if not (self.country.currentText() == "-"  or (self.country.count() == 0 and self.country.currentText()  == "")):
             if whereand:
                 condition = condition + f" WHERE country = '{self.country.currentText()}'"
             else:
                 condition = condition + f" AND country = '{self.country.currentText()}'"
             whereand = False
-        if self.region.currentText() != "-" and self.region.currentText()  != "":
+        if not (self.region.currentText() == "-" or (self.region.count() == 0 and self.region.currentText()  == "")):
             if whereand:
                 condition = condition + f" WHERE region = '{self.region.currentText()}'"
             else:
                 condition = condition + f" AND region = '{self.region.currentText()}'"
             whereand = False
-        if self.church.currentText() != "-" and self.church.currentText() != "":
+        if not (self.church.currentText() == "-" or (self.church.count() == 0 and self.church.currentText() == "")):
             if whereand:
                 condition = condition + f" WHERE church = '{self.church.currentText()}'"
             else:
@@ -575,13 +597,13 @@ class findDialog(QDialog, findWindow.Ui_Dialog):
                 self.tableWidget.setItem(y,x,tableItem)
                 x += 1
             y += 1
-
-        
+            
     def month_listing(self):
         year = self.year.currentText()
-        if year == "-" or year == "":
+        if year == "-" or (self.year.count() == 0 and year == ""):
             self.month.clear()
         else:
+            self.month.clear()
             self.month.addItem("-")
             cur.execute(f"SELECT month FROM church WHERE year = {year}")
             month_list = cur.fetchall()
@@ -594,7 +616,7 @@ class findDialog(QDialog, findWindow.Ui_Dialog):
 
     def series_listing(self):
         theme = self.theme.currentText()
-        if theme == "-" or theme == "":
+        if theme == "-" or (self.theme.count() == 0 and theme == ""):
             self.series.clear()
         else:
             self.series.clear()
@@ -608,11 +630,13 @@ class findDialog(QDialog, findWindow.Ui_Dialog):
             self.series.setItemText(0, "-")
         self.find_image()
 
+
     def region_listing(self):
         country = self.country.currentText()
-        if country == "-" or country == "":
+        if country == "-" or (self.country.count() == 0 and country == ""):
             self.region.clear()
         else:
+            self.region.clear()
             self.region.addItem("-")
             cur.execute(f"SELECT region FROM church WHERE country = '{country}'")
             region_list = cur.fetchall()
@@ -626,9 +650,10 @@ class findDialog(QDialog, findWindow.Ui_Dialog):
     def church_listing(self):
         country = self.country.currentText()
         region = self.region.currentText()
-        if region == "-" or country == "-" or region == "" or country == "":
+        if region == "-" or (self.country.count() == 0 and country == "") or (self.region.count() == 0 and region == "") or country == "-":
             self.church.clear()
         else:
+            self.church.clear()
             self.church.addItem("-")
             cur.execute(f"SELECT church FROM church WHERE country = '{country}' and region = '{region}'")
             church_list = cur.fetchall()
@@ -643,12 +668,57 @@ class findDialog(QDialog, findWindow.Ui_Dialog):
         self.region_listing()
         self.church_listing()
 
+    def for_country(self):
+        self.region_listing()
+        self.church_listing()
+
     def modify_window(self):
         dialog = modifyDialog(self.tableWidget.item(self.tableWidget.currentRow(), 0).text())
         dialog.exec()
         self.combobox_generate()
 
+class stripDialog(QDialog, stripWindow.Ui_Dialog):
+    def __init__(self, parent=None):
+        QDialog.__init__(self, parent)
+        self.setupUi(self)
+        cur.execute("SELECT image_id, type, theme, series, country, region, church FROM church")
+        list = cur.fetchall()
+        amount = len(list)
+        self.progressBar.setMaximum(amount)
+        progress = 0
+        for item in list:
+            cur.execute(f"UPDATE church SET type = '{item[1].strip()}' WHERE image_id={item[0]}")
+            cur.execute(f"UPDATE church SET theme = '{item[2].strip()}' WHERE image_id={item[0]}")
+            cur.execute(f"UPDATE church SET series = '{item[3].strip()}' WHERE image_id={item[0]}")
+            cur.execute(f"UPDATE church SET country = '{item[4].strip()}' WHERE image_id={item[0]}")
+            cur.execute(f"UPDATE church SET region = '{item[5].strip()}' WHERE image_id={item[0]}")
+            cur.execute(f"UPDATE church SET church = '{item[6].strip()}' WHERE image_id={item[0]}")
+            progress += 1
+            self.label.setText(f"{progress}/{amount}")
+            self.progressBar.setValue(progress)
 
+        conn.commit()
+        self.label.setText("창을 닫아주세요.")
+        self.accept()
+
+class fileDeleteDialog(QDialog, stripWindow.Ui_Dialog):
+    def __init__(self, parent=None):
+        QDialog.__init__(self, parent)
+        self.setupUi(self)
+
+        file_list = [file for file in os.listdir('./img') if file.endswith('.jpg') or file.endswith('.jpeg') or file.endswith('.gif') or file.endswith('.png') or file.endswith('.webp') or file.endswith('.tif') or file.endswith('.tiff')]
+        amount = len(file_list)
+        cur.execute('SELECT file_name FROM church')
+        valid_file = [x[0] for x in cur.fetchall()]
+        self.progressBar.setMaximum(amount)
+        progress = 0
+        for file in file_list:
+            if file not in valid_file:
+                os.remove('./img/'+file)
+            progress += 1
+            self.progressBar.setValue(progress)
+            self.label.setText(f'{progress}/{amount}')
+        self.label.setText("창을 닫아주세요.")
 
 app = QApplication()
 window = MainWindow()

@@ -32,6 +32,10 @@ class Ui_MainWindow(object):
         self.addmenu.setObjectName(u"addmenu")
         self.modify = QAction(MainWindow)
         self.modify.setObjectName(u"modify")
+        self.strip = QAction(MainWindow)
+        self.strip.setObjectName(u"strip")
+        self.fileDelete = QAction(MainWindow)
+        self.fileDelete.setObjectName(u"fileDelete")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.calendertype = QComboBox(self.centralwidget)
@@ -114,14 +118,19 @@ class Ui_MainWindow(object):
         self.menubar.setGeometry(QRect(0, 0, 1301, 27))
         self.menu = QMenu(self.menubar)
         self.menu.setObjectName(u"menu")
+        self.menu2 = QMenu(self.menubar)
+        self.menu2.setObjectName(u"menu2")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
         self.menubar.addAction(self.menu.menuAction())
+        self.menubar.addAction(self.menu2.menuAction())
         self.menu.addAction(self.addmenu)
         self.menu.addAction(self.modify)
+        self.menu2.addAction(self.strip)
+        self.menu2.addAction(self.fileDelete)
 
         self.retranslateUi(MainWindow)
 
@@ -136,6 +145,8 @@ class Ui_MainWindow(object):
 #endif // QT_CONFIG(tooltip)
         self.addmenu.setText(QCoreApplication.translate("MainWindow", u"\ucd94\uac00", None))
         self.modify.setText(QCoreApplication.translate("MainWindow", u"\uc218\uc815/\uc0ad\uc81c", None))
+        self.strip.setText(QCoreApplication.translate("MainWindow", u"\uacf5\ubc31 \uc9c0\uc6b0\uae30", None))
+        self.fileDelete.setText(QCoreApplication.translate("MainWindow", u"\uc789\uc5ec \ud30c\uc77c \uc9c0\uc6b0\uae30", None))
         self.image.setText("")
         self.typelabel.setText(QCoreApplication.translate("MainWindow", u"\ub2ec\ub825 \uc885\ub958", None))
         self.themelabel.setText(QCoreApplication.translate("MainWindow", u"\ud14c\ub9c8", None))
@@ -155,5 +166,6 @@ class Ui_MainWindow(object):
         self.searchCombo.setItemText(1, QCoreApplication.translate("MainWindow", u"\ud30c\uc77c\uba85", None))
 
         self.menu.setTitle(QCoreApplication.translate("MainWindow", u"\ub370\uc774\ud130\ubca0\uc774\uc2a4", None))
+        self.menu2.setTitle(QCoreApplication.translate("MainWindow", u"\ud3b8\uc758 \uae30\ub2a5", None))
     # retranslateUi
 

@@ -296,7 +296,15 @@
     <addaction name="addmenu"/>
     <addaction name="modify"/>
    </widget>
+   <widget class="QMenu" name="menu2">
+    <property name="title">
+     <string>편의 기능</string>
+    </property>
+    <addaction name="strip"/>
+    <addaction name="fileDelete"/>
+   </widget>
    <addaction name="menu"/>
+   <addaction name="menu2"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="add">
@@ -315,6 +323,16 @@
   <action name="modify">
    <property name="text">
     <string>수정/삭제</string>
+   </property>
+  </action>
+  <action name="strip">
+   <property name="text">
+    <string>공백 지우기</string>
+   </property>
+  </action>
+  <action name="fileDelete">
+   <property name="text">
+    <string>잉여 파일 지우기</string>
    </property>
   </action>
  </widget>
