@@ -99,6 +99,7 @@ class Ui_Dialog(object):
         self.tableWidget.setGeometry(QRect(0, 10, 1141, 681))
         self.tableWidget.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.tableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.tableWidget.setSortingEnabled(True)
         self.serieslabel = QLabel(Dialog)
         self.serieslabel.setObjectName(u"serieslabel")
         self.serieslabel.setGeometry(QRect(340, 750, 67, 17))
