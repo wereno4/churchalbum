@@ -7,3 +7,8 @@ def update():
     for file in file_list:
         shutil.move('./tmp/'+file, './'+file)
     shutil.rmtree('./tmp')
+
+    if os.name == 'nt':
+        os.system('./pipupdate.bat')
+    else:
+        os.system('sh ./pipupdate.sh')
