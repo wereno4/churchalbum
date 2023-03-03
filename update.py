@@ -4,6 +4,7 @@ def update():
     repo = git.Repo.clone_from('https://github.com/wereno4/churchalbum.git','./tmp', branch='main')
 
     file_list = os.listdir('./tmp')
+    shutil.rmtree('./tmp/.git')
     for file in file_list:
         shutil.move('./tmp/'+file, './'+file)
     shutil.rmtree('./tmp')
