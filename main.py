@@ -4,6 +4,7 @@ from PySide6.QtGui import QPixmap
 from mainWindow import Ui_MainWindow
 import addWindow, modifyWindow, findWindow, stripWindow
 import os, shutil
+import update
 
 
 conn = sqlite3.connect("./church.db")
@@ -44,6 +45,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.search.textChanged.connect(self.search_list)
         self.strip.triggered.connect(self.strip_data)
         self.fileDelete.triggered.connect(self.file_delete)
+        self.updateAction.triggered.connect(self.update)
 
 
         print(self.region.count())
@@ -349,6 +351,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def file_delete(self):
         dialog = fileDeleteDialog()
         dialog.exec()
+
+    def update(self):
+        buttonReply = QMessageBox.warning(self, "프로그램이 종료됩니다",
+                                              "프로그램이 종료됩니다. 업데이트 하시겠습니까?",
+                                              QMessageBox.Yes | QMessageBox.No, QMessageBox.Yes)
+        if buttonReply == QMessageBox.No:
+            pass
+        elif buttonReply == QMessageBox.Yes:
+            update.update()
+            exit()
+
 
 class addDialog(QDialog, addWindow.Ui_Dialog):
     def __init__(self, parent=None):
@@ -719,7 +732,6 @@ class fileDeleteDialog(QDialog, stripWindow.Ui_Dialog):
             self.progressBar.setValue(progress)
             self.label.setText(f'{progress}/{amount}')
         self.label.setText("창을 닫아주세요.")
-
 app = QApplication()
 window = MainWindow()
 
@@ -728,6 +740,3 @@ window.show()
 app.exec()
 conn.close()
 
-#FDSKFSDLKAFJSDALKJFWKALFNMSDKFAA
-#FKLDSJAFKDLJSAFLKSDJF
-#FfjAFKLDSAJLKFDSAJF

@@ -36,6 +36,8 @@ class Ui_MainWindow(object):
         self.strip.setObjectName(u"strip")
         self.fileDelete = QAction(MainWindow)
         self.fileDelete.setObjectName(u"fileDelete")
+        self.updateAction = QAction(MainWindow)
+        self.updateAction.setObjectName(u"updateAction")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.calendertype = QComboBox(self.centralwidget)
@@ -131,6 +133,7 @@ class Ui_MainWindow(object):
         self.menu.addAction(self.modify)
         self.menu2.addAction(self.strip)
         self.menu2.addAction(self.fileDelete)
+        self.menu2.addAction(self.updateAction)
 
         self.retranslateUi(MainWindow)
 
@@ -147,6 +150,7 @@ class Ui_MainWindow(object):
         self.modify.setText(QCoreApplication.translate("MainWindow", u"\uc218\uc815/\uc0ad\uc81c", None))
         self.strip.setText(QCoreApplication.translate("MainWindow", u"\uacf5\ubc31 \uc9c0\uc6b0\uae30", None))
         self.fileDelete.setText(QCoreApplication.translate("MainWindow", u"\uc789\uc5ec \ud30c\uc77c \uc9c0\uc6b0\uae30", None))
+        self.updateAction.setText(QCoreApplication.translate("MainWindow", u"\ud504\ub85c\uadf8\ub7a8 \uc5c5\ub370\uc774\ud2b8", None))
         self.image.setText("")
         self.typelabel.setText(QCoreApplication.translate("MainWindow", u"\ub2ec\ub825 \uc885\ub958", None))
         self.themelabel.setText(QCoreApplication.translate("MainWindow", u"\ud14c\ub9c8", None))

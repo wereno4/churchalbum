@@ -302,6 +302,7 @@
     </property>
     <addaction name="strip"/>
     <addaction name="fileDelete"/>
+    <addaction name="updateAction"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu2"/>
@@ -333,6 +334,11 @@
   <action name="fileDelete">
    <property name="text">
     <string>잉여 파일 지우기</string>
+   </property>
+  </action>
+  <action name="updateAction">
+   <property name="text">
+    <string>프로그램 업데이트</string>
    </property>
   </action>
  </widget>
