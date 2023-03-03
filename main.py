@@ -47,11 +47,6 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.fileDelete.triggered.connect(self.file_delete)
         self.updateAction.triggered.connect(self.update)
 
-
-        print(self.region.count())
-
-
-
     def combobox_generate(self):
         self.calendertype.clear()
         self.theme.clear()
