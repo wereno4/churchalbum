@@ -1,1 +1,3 @@
-echo "ok!"
+source ./venv/bin/activate
+pip install -r requirements.txt
+deactivateS
